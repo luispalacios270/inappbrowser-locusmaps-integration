@@ -7,9 +7,23 @@
 
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-
+  <!-- <link rel="stylesheet" href="style.css"> -->
   <style>
+    .container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    #icon {
+      position: absolute;
+
+      z-index: 1000;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: crimson;
+    }
   </style>
 
 </head>
@@ -18,10 +32,10 @@
 
   <div class="container">
 
-
+    <!-- data-controls="levels" -->
 
     <div class="locusmaps" data-account-id="A16W9UL4PCPZ8S" data-venue-id="lhr" data-level-id="lhr-t2-1" data-position="51.468999,-0.450903"
-      data-zoom="85" data-fullpage data-controls="levels"></div>
+      data-zoom="85" data-fullpage data-controls="none"></div>
 
     <div id="icon">
       <i class="material-icons">location_on</i>
@@ -31,7 +45,42 @@
   </div>
 
   <script src="https://js.locuslabs.com/latest/locusmaps.js"></script>
-  <script src="script.js"></script>
+  <script>
+
+
+
+    LocusMaps.onReady(function () {
+
+      LocusMaps.on("mapLoaded", function () {
+        console.log("map was loaded");
+        let lat = 51.468999
+        let lng = -0.450903;
+
+        // setInterval(_ => {
+
+        lat += 0.0001;
+        lng += 0.0001;
+        setTimeout(function () {
+          LocusMaps({ command: "setPosition", lat: String(lat), lng: String(lng) })
+        }, 1000)
+
+        // }, 2000)
+
+
+      })
+
+      // LocusMaps.observe(function (eventName, newLevelId) {
+      //   if (eventName === "level") {
+      //     const iconContainer = document.getElementById("icon");
+      //     if (newLevelId.levelId === "lhr-t2-1")
+      //       iconContainer.style.display = "block";
+      //     else iconContainer.style.display = "none";
+      //   }
+      // });
+    });
+
+  </script>
+  <!-- <script src="script.js"></script> -->
 
 
 
